@@ -1,0 +1,3 @@
+aws dynamodb put-item --table-name sensors --item file://MagneticSensor.json --return-consumed-capacity TOTAL
+
+aws dynamodb put-item --table-name sensors --item file://IRSensor.json --return-consumed-capacity TOTAL

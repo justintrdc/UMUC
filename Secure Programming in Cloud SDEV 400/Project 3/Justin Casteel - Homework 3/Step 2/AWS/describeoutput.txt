@@ -1,0 +1,91 @@
+aws rds describe-db-instances
+{
+    "DBInstances": [
+        {
+            "PubliclyAccessible": true,
+            "MasterUsername": "justin",
+            "MonitoringInterval": 0,
+            "LicenseModel": "general-public-license",
+            "VpcSecurityGroups": [
+                {
+                    "Status": "active",
+                    "VpcSecurityGroupId": "sg-29a47942"
+                }
+            ],
+            "InstanceCreateTime": "2018-02-17T04:52:42.850Z",
+            "CopyTagsToSnapshot": false,
+            "OptionGroupMemberships": [
+                {
+                    "Status": "in-sync",
+                    "OptionGroupName": "default:mysql-5-6"
+                }
+            ],
+            "PendingModifiedValues": {},
+            "Engine": "mysql",
+            "MultiAZ": false,
+            "LatestRestorableTime": "2018-02-17T05:00:00Z",
+            "DBSecurityGroups": [],
+            "DBParameterGroups": [
+                {
+                    "DBParameterGroupName": "default.mysql5.6",
+                    "ParameterApplyStatus": "in-sync"
+                }
+            ],
+            "PerformanceInsightsEnabled": false,
+            "AutoMinorVersionUpgrade": true,
+            "PreferredBackupWindow": "08:56-09:26",
+            "DBSubnetGroup": {
+                "Subnets": [
+                    {
+                        "SubnetStatus": "Active",
+                        "SubnetIdentifier": "subnet-d28262a8",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-2b"
+                        }
+                    },
+                    {
+                        "SubnetStatus": "Active",
+                        "SubnetIdentifier": "subnet-fbfea5b6",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-2c"
+                        }
+                    },
+                    {
+                        "SubnetStatus": "Active",
+                        "SubnetIdentifier": "subnet-2c3a9444",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-2a"
+                        }
+                    }
+                ],
+                "DBSubnetGroupName": "default",
+                "VpcId": "vpc-731aba1b",
+                "DBSubnetGroupDescription": "default",
+                "SubnetGroupStatus": "Complete"
+            },
+            "ReadReplicaDBInstanceIdentifiers": [],
+            "AllocatedStorage": 20,
+            "DBInstanceArn": "arn:aws:rds:us-east-2:704466279810:db:mydbinstance",
+            "BackupRetentionPeriod": 1,
+            "DBName": "SDEV400RDSTest",
+            "PreferredMaintenanceWindow": "mon:07:43-mon:08:13",
+            "Endpoint": {
+                "HostedZoneId": "Z2XHWR1WZ565X2",
+                "Port": 3306,
+                "Address": "mydbinstance.cy0effnuh3vy.us-east-2.rds.amazonaws.com"
+            },
+            "DBInstanceStatus": "available",
+            "IAMDatabaseAuthenticationEnabled": false,
+            "EngineVersion": "5.6.37",
+            "AvailabilityZone": "us-east-2a",
+            "DomainMemberships": [],
+            "StorageType": "standard",
+            "DbiResourceId": "db-VXTB4VJA4NZROSS4HGPUDPTTP4",
+            "CACertificateIdentifier": "rds-ca-2015",
+            "StorageEncrypted": false,
+            "DBInstanceClass": "db.t2.micro",
+            "DbInstancePort": 0,
+            "DBInstanceIdentifier": "mydbinstance"
+        }
+    ]
+}

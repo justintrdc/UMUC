@@ -1,0 +1,5 @@
+aws dynamodb create-table --table-name Courses --attribute-definitions AttributeName=CourseID,AttributeType=N AttributeName=CatalogNbr,AttributeType=N --key-schema AttributeName=CourseID,KeyType=HASH AttributeName=CatalogNbr,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+aws dynamodb create-table --table-name Students --attribute-definitions AttributeName=StudentID,AttributeType=N AttributeName=Lastname,AttributeType=S --key-schema AttributeName=StudentID,KeyType=HASH AttributeName=Lastname,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+aws dynamodb create-table --table-name StudentCourses --attribute-definitions AttributeName=StudentID,AttributeType=N AttributeName=CourseID,AttributeType=N --key-schema AttributeName=StudentID,KeyType=HASH AttributeName=CourseID,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5

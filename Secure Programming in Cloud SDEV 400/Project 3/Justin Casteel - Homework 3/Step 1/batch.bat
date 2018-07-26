@@ -1,0 +1,1 @@
+aws dynamodb create-table --table-name sensors --attribute-definitions AttributeName=Sensor,AttributeType=S AttributeName=Filepath_ID,AttributeType=N --key-schema AttributeName=Sensor,KeyType=HASH AttributeName=Filepath_ID,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5

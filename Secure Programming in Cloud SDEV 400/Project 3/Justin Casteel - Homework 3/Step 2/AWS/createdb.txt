@@ -1,0 +1,1 @@
+aws rds create-db-instance --db-instance-identifier mydbinstance --allocated-storage 20 --db-name SDEV400RDSTest --db-instance-class db.t2.micro --engine mysql --master-username justin --master-user-password casteel8500

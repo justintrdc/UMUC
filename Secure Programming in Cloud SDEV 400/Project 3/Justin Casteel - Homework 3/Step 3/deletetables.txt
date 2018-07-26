@@ -1,0 +1,8 @@
+aws dynamodb delete-table --table-name Courses
+aws dynamodb delete-table --table-name StudentCourses
+aws dynamodb delete-table --table-name Students
+aws dynamodb delete-table --table-name sensors
+
+drop table StudentCourses;
+drop table Students;
+drop table Courses;

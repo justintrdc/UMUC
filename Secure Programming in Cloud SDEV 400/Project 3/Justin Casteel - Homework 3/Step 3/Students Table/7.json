@@ -1,0 +1,9 @@
+{
+ "Firstname": {"S": "Bobby"},
+ "Lastname": {"S": "Fischer"},
+ "email": {"S": "Fischer@gmail.com"},
+ "YearofEnrollment": {"N": "2017"},
+ "StudentID": {"N": "7"},
+ "GPA": {"N": "3.4"},
+ "ExpectedGraduationYear": {"N": "2019"}
+}

@@ -1,0 +1,4 @@
+{
+ "Lastname": {"S": "Einstein"},
+ "StudentID": {"N": "6"}
+}

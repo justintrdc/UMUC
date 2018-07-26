@@ -1,0 +1,3 @@
+drop table StudentCourses;
+drop table Students;
+drop table Courses;

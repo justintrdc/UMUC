@@ -1,0 +1,5 @@
+aws dynamodb put-item --table-name Courses --item file://1.json --return-consumed-capacity TOTAL
+aws dynamodb put-item --table-name Courses --item file://2.json --return-consumed-capacity TOTAL
+aws dynamodb put-item --table-name Courses --item file://3.json --return-consumed-capacity TOTAL
+aws dynamodb put-item --table-name Courses --item file://4.json --return-consumed-capacity TOTAL
+aws dynamodb put-item --table-name Courses --item file://5.json --return-consumed-capacity TOTAL

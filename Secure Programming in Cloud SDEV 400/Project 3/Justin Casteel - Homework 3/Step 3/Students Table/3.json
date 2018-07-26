@@ -1,0 +1,8 @@
+{
+ "Firstname": {"S": "Jerreak"},
+ "Lastname": {"S": "Smith"},
+ "email": {"S": "smith@gmail.com"},
+ "YearofEnrollment": {"N": "2015"},
+ "StudentID": {"N": "3"}
+}
+

@@ -1,0 +1,3 @@
+\connect justin@mydbinstance.cy0effnuh3vy.us-east-2.rds.amazonaws.com
+\use SDEV400RDSTest
+\sql

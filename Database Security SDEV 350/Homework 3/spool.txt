@@ -1,0 +1,318 @@
+SQL> CREATE USER justin
+  2  IDENTIFIED BY dwts
+  3  DEFAULT TABLESPACE USERS
+  4  QUOTA 10M ON USERS;
+
+User created.
+
+SQL> GRANT CREATE SESSION TO justin;
+
+Grant succeeded.
+
+SQL> GRANT resource to justin;
+
+Grant succeeded.
+
+SQL> GRANT CREATE TABLE to justin;
+
+Grant succeeded.
+
+SQL> GRANT UNLIMITED TABLESPACE to justin;
+
+Grant succeeded.
+
+SQL> GRANT SELECT ANY TABLE to justin;
+
+Grant succeeded.
+
+SQL> GRANT UPDATE ANY TABLE to justin;
+
+Grant succeeded.
+
+SQL> GRANT INSERT ANY TABLE to justin;
+
+Grant succeeded.
+
+SQL> GRANT DROP ANY TABLE to justin;
+
+Grant succeeded.
+
+SQL> GRANT CREATE VIEW TO justin;
+
+Grant succeeded.
+
+SQL> GRANT EXECUTE ON DBMS_RLS TO justin;
+
+Grant succeeded.
+
+SQL> CONNECT justin/dwts
+Connected.
+SQL> CREATE TABLE customers(
+  2     id    NUMBER(6),
+  3     first_name    VARCHAR2(20) NOT NULL,
+  4     last_name     VARCHAR2(20) NOT NULL,
+  5     address       VARCHAR2(60) NOT NULL,
+  6     city          VARCHAR2(20) NOT NULL,
+  7     zipcode NUMBER(6)    NOT NULL,
+  8     phone VARCHAR2(20),
+  9     CONSTRAINT customer_id_pk PRIMARY KEY(id));
+
+Table created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> CREATE TABLE products(
+  2     product_id    NUMBER(6),
+  3     name          VARCHAR2(20) NOT NULL,
+  4     price         VARCHAR2(20) NOT NULL,
+  5     description   VARCHAR2(60),
+  6     CONSTRAINT product_id_pk PRIMARY KEY(product_id));
+
+Table created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> INSERT INTO customers VALUES ('000001', 'Justin', 'Casteel', '1 Main Street', 'Centreville', '21617', '4104651457' );
+
+1 row created.
+
+SQL> INSERT INTO customers VALUES ('000002', 'Jerreak', 'Purnell', '54 Romancoke Drive', 'Grasonville', '21638', ' ' );
+
+1 row created.
+
+SQL> INSERT INTO customers VALUES ('000003', 'Augustus', 'Gloop', '100 Elm Street', 'Centreville', '21617', '' );
+
+1 row created.
+
+SQL> INSERT INTO customers VALUES ('000004', 'Orlando', 'Hogan', '87 Obon', 'Centreville', '21617', '4105874525' );
+
+1 row created.
+
+SQL> INSERT INTO customers VALUES ('000005', 'Julia', 'Hogan', '16 Poplar Drive', 'Chester', '21619', '4102148965' );
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> INSERT INTO products VALUES ('000001', 'Football', '10.99', 'NFL certified football.');
+
+1 row created.
+
+SQL> INSERT INTO products VALUES ('000002', 'Baseball', '8.99', 'MLB certified baseball.');
+
+1 row created.
+
+SQL> INSERT INTO products VALUES ('000003', 'Mousepad', '15.99', 'SteelSeries XL Mousepad');
+
+1 row created.
+
+SQL> INSERT INTO products VALUES ('000004', 'Mouse', '59.99', 'Logitech G500s Mouse');
+
+1 row created.
+
+SQL> INSERT INTO products VALUES ('000005', 'HyperX Headphones', '8.99', 'HyperX Cloud II Headphones');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create or replace function no_customers_num1 (
+  2  p_schema in varchar2,
+  3  p_object in varchar2)
+  4  return varchar2
+  5  as
+  6  begin
+  7  return 'id != 1';
+  8  end;
+  9  /
+
+Function created.
+
+SQL> create or replace function no_product_num5 (
+  2  p_schema in varchar2,
+  3  p_object in varchar2)
+  4  return varchar2
+  5  as
+  6  begin
+  7  return 'product_id != 5';
+  8  end;
+  9  /
+
+Function created.
+
+SQL> begin
+  2  dbms_rls.add_policy
+  3  (object_schema => 'JUSTIN',
+  4  object_name => 'CUSTOMERS',
+  5  policy_name => 'customers_vpd1',
+  6  policy_function => 'no_customers_num1');
+  7  end;
+  8  /
+
+PL/SQL procedure successfully completed.
+
+SQL> begin
+  2  dbms_rls.add_policy
+  3  (object_schema => 'JUSTIN',
+  4  object_name => 'PRODUCTS',
+  5  policy_name => 'products_vpd1',
+  6  policy_function => 'no_product_num5');
+  7  end;
+  8  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from customers;
+
+        ID FIRST_NAME           LAST_NAME                                       
+---------- -------------------- --------------------                            
+ADDRESS                                                                         
+------------------------------------------------------------                    
+CITY                    ZIPCODE PHONE                                           
+-------------------- ---------- --------------------                            
+         2 Jerreak              Purnell                                         
+54 Romancoke Drive                                                              
+Grasonville               21638                                                 
+                                                                                
+         3 Augustus             Gloop                                           
+100 Elm Street                                                                  
+Centreville               21617                                                 
+
+        ID FIRST_NAME           LAST_NAME                                       
+---------- -------------------- --------------------                            
+ADDRESS                                                                         
+------------------------------------------------------------                    
+CITY                    ZIPCODE PHONE                                           
+-------------------- ---------- --------------------                            
+                                                                                
+         4 Orlando              Hogan                                           
+87 Obon                                                                         
+Centreville               21617 4105874525                                      
+                                                                                
+         5 Julia                Hogan                                           
+16 Poplar Drive                                                                 
+
+        ID FIRST_NAME           LAST_NAME                                       
+---------- -------------------- --------------------                            
+ADDRESS                                                                         
+------------------------------------------------------------                    
+CITY                    ZIPCODE PHONE                                           
+-------------------- ---------- --------------------                            
+Chester                   21619 4102148965                                      
+                                                                                
+
+SQL> select id, first_name FROM customers;
+
+        ID FIRST_NAME                                                           
+---------- --------------------                                                 
+         2 Jerreak                                                              
+         3 Augustus                                                             
+         4 Orlando                                                              
+         5 Julia                                                                
+
+SQL> select * from products;
+
+PRODUCT_ID NAME                 PRICE                                           
+---------- -------------------- --------------------                            
+DESCRIPTION                                                                     
+------------------------------------------------------------                    
+         1 Football             10.99                                           
+NFL certified football.                                                         
+                                                                                
+         2 Baseball             8.99                                            
+MLB certified baseball.                                                         
+                                                                                
+         3 Mousepad             15.99                                           
+SteelSeries XL Mousepad                                                         
+                                                                                
+
+PRODUCT_ID NAME                 PRICE                                           
+---------- -------------------- --------------------                            
+DESCRIPTION                                                                     
+------------------------------------------------------------                    
+         4 Mouse                59.99                                           
+Logitech G500s Mouse                                                            
+                                                                                
+
+SQL> connect sqlplus / as sysdba
+Connected.
+
+SQL> select * from justin.customers;
+
+        ID FIRST_NAME           LAST_NAME                                       
+---------- -------------------- --------------------                            
+ADDRESS                                                                         
+------------------------------------------------------------                    
+CITY                    ZIPCODE PHONE                                           
+-------------------- ---------- --------------------                            
+         1 Justin               Casteel                                         
+1 Main Street                                                                   
+Centreville               21617 4104651457                                      
+                                                                                
+         2 Jerreak              Purnell                                         
+54 Romancoke Drive                                                              
+Grasonville               21638                                                 
+
+        ID FIRST_NAME           LAST_NAME                                       
+---------- -------------------- --------------------                            
+ADDRESS                                                                         
+------------------------------------------------------------                    
+CITY                    ZIPCODE PHONE                                           
+-------------------- ---------- --------------------                            
+                                                                                
+         3 Augustus             Gloop                                           
+100 Elm Street                                                                  
+Centreville               21617                                                 
+                                                                                
+         4 Orlando              Hogan                                           
+87 Obon                                                                         
+
+        ID FIRST_NAME           LAST_NAME                                       
+---------- -------------------- --------------------                            
+ADDRESS                                                                         
+------------------------------------------------------------                    
+CITY                    ZIPCODE PHONE                                           
+-------------------- ---------- --------------------                            
+Centreville               21617 4105874525                                      
+                                                                                
+         5 Julia                Hogan                                           
+16 Poplar Drive                                                                 
+Chester                   21619 4102148965                                      
+                                                                                
+
+SQL> select * from justin.products;
+
+PRODUCT_ID NAME                 PRICE                                           
+---------- -------------------- --------------------                            
+DESCRIPTION                                                                     
+------------------------------------------------------------                    
+         1 Football             10.99                                           
+NFL certified football.                                                         
+                                                                                
+         2 Baseball             8.99                                            
+MLB certified baseball.                                                         
+                                                                                
+         3 Mousepad             15.99                                           
+SteelSeries XL Mousepad                                                         
+                                                                                
+
+PRODUCT_ID NAME                 PRICE                                           
+---------- -------------------- --------------------                            
+DESCRIPTION                                                                     
+------------------------------------------------------------                    
+         4 Mouse                59.99                                           
+Logitech G500s Mouse                                                            
+                                                                                
+         5 HyperX Headphones    8.99                                            
+HyperX Cloud II Headphones                                                      
+                                                                                
+
+SQL> spool off

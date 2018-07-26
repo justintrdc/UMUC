@@ -1,0 +1,51 @@
+/* DISPLAY AUDIT TRAIL */
+
+COLUMN event_timestamp FORMAT A30
+COLUMN dbusername FORMAT A10
+COLUMN action_name FORMAT A20
+COLUMN object_schema FORMAT A10
+COLUMN object_name FORMAT A20
+
+SELECT event_timestamp,
+       dbusername,
+       action_name,
+       object_schema,
+       object_name
+FROM   unified_audit_trail
+WHERE  dbusername = 'SDEV350USER'
+ORDER BY event_timestamp;
+
+/* DROP POLICIES */
+NOAUDIT POLICY create_any_table_policy;
+DROP AUDIT POLICY create_any_table_policy;
+
+NOAUDIT POLICY drop_any_table_policy;
+DROP AUDIT POLICY drop_any_table_policy;
+
+NOAUDIT POLICY create_user_policy;
+DROP AUDIT POLICY create_user_policy;
+
+NOAUDIT POLICY drop_user_policy;
+DROP AUDIT POLICY drop_user_policy;
+
+NOAUDIT POLICY update_any_table_policy;
+DROP AUDIT POLICY update_any_table_policy;
+
+/* CLEAR AUDIT TRAIL */
+BEGIN
+  DBMS_AUDIT_MGMT.clean_audit_trail(
+   audit_trail_type        => DBMS_AUDIT_MGMT.audit_trail_unified,
+   use_last_arch_timestamp => FALSE);
+END;
+/
+
+BEGIN
+  DBMS_AUDIT_MGMT.clean_audit_trail(
+   audit_trail_type        => DBMS_AUDIT_MGMT.audit_trail_unified,
+   use_last_arch_timestamp => TRUE);
+END;
+/
+
+/* DROP USERS */
+drop user sdev350user cascade;
+drop user sdev350user2 cascade;

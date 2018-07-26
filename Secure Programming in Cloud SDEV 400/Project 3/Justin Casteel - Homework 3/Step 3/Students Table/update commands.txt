@@ -1,0 +1,1 @@
+aws dynamodb update-item --table-name Students --key file://studentupdate.json --update-expression "SET #G = :g, #E = :e" --expression-attribute-names file://ExpressionField.json --expression-attribute-values file://ExpressionValue.json --return-values ALL_NEW
